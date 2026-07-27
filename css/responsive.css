@@ -1,0 +1,67 @@
+/* =========================
+   MOBILE RESPONSIVE CSS
+========================= */
+
+
+@media(max-width:768px){
+
+
+/* Navbar */
+
+nav{
+
+    flex-direction:column;
+
+}
+
+
+
+/* Main Grid */
+
+main{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+/* Dashboard */
+
+.dashboard-container{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+/* Events */
+
+.event-container{
+
+    flex-direction:column;
+
+}
+
+
+
+.card{
+
+    width:100%;
+
+}
+
+
+
+/* Header */
+
+header h1{
+
+    font-size:24px;
+
+}
+
+
+
+}
