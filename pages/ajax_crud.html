@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Asynchronous AJAX and Fetch API Event CRUD Studio without full page reload.">
+  <title>AJAX/Fetch CRUD Studio (Practical 13) | StudentHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .api-inspector-panel {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: monospace;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      border: 1px solid #1e293b;
+      margin-top: 1.5rem;
+      overflow-x: auto;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: bold;
+      font-size: 0.75rem;
+    }
+    .status-200, .status-201 { background: #065f46; color: #34d399; }
+    .status-400, .status-422 { background: #7c2d12; color: #fb923c; }
+    .status-500 { background: #881337; color: #f43f5e; }
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header Banner -->
+  <header class="site-header" role="banner" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub API Studio</h1>
+          <p>Practical 13: Asynchronous AJAX/Fetch CRUD without Page Reload</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="../php/admin_dashboard.php">Admin PHP Console</a></li>
+        <li><a href="../php/students_crud.php">Students CRUD</a></li>
+        <li><a href="../php/events_crud.php">Events CRUD</a></li>
+        <li><a href="ajax_crud.html" class="active" aria-current="page">AJAX Studio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">AJAX/Fetch CRUD (Practical 13)</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    
+    <!-- Hero / Concept Explainer -->
+    <section class="content-section" style="margin-bottom: 2rem;">
+      <div class="section-header">
+        <div>
+          <h2>Single-Page Asynchronous Event Operations</h2>
+          <p style="color: var(--text-muted); margin: 0;">Perform Create, Read, Update, and Delete actions using native JavaScript <code>fetch()</code> communicating with PHP REST API (<code>php/api/events_api.php</code>) without full page reload.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <span class="badge badge-info" id="apiStatusBadge">API Ready (200 OK)</span>
+          <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Add Event (Async POST)</button>
+        </div>
+      </div>
+
+      <!-- Controls: Debounced Search & Category Filter -->
+      <div class="filter-bar" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <div class="search-input-wrapper" style="flex: 1; min-width: 250px;">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="ajaxSearchInput" class="search-input" placeholder="Debounced async search (type to filter without reload)...">
+        </div>
+        <select id="ajaxCategoryFilter" class="form-control" style="width: auto;">
+          <option value="all">All Categories</option>
+          <option value="Technical">Technical</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Sports">Sports</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Career">Career</option>
+          <option value="Social">Social</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="fetchEvents()">🔄 Refresh Data</button>
+      </div>
+
+      <!-- Async Data Table Container -->
+      <div class="table-responsive" style="margin-top: 1.5rem;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Event Title</th>
+              <th>Category</th>
+              <th>Date & Time</th>
+              <th>Venue</th>
+              <th>Capacity</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ajaxEventsTableBody">
+            <!-- Dynamically populated via Fetch API -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Live Fetch Network Inspector Panel (Practical 13 Viva Helper) -->
+      <div class="api-inspector-panel" id="apiInspector">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; color: #94a3b8; font-weight: bold;">
+          <span>⚡ LIVE FETCH NETWORK INSPECTOR</span>
+          <span id="inspectorLatency">Latency: 0ms</span>
+        </div>
+        <div id="inspectorLog">
+          Endpoint: <code>../php/api/events_api.php</code> &bull; Ready for requests...
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       MODALS FOR ASYNC CREATE / UPDATE
+       ========================================================================= -->
+
+  <!-- Add Event Modal -->
+  <div class="modal-backdrop" id="addAsyncModal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Campus Event (Async Fetch POST)</h3>
+        <button class="modal-close-btn" onclick="closeModal('addAsyncModal')">&times;</button>
+      </div>
+      <form id="addEventForm" onsubmit="handleCreateEvent(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Event Title *</label>
+            <input type="text" id="add_title" class="form-control" placeholder="e.g. NextGen Web Conference" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="add_category" class="form-control" required>
+                <option value="Technical">Technical</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Sports">Sports</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Career">Career</option>
+                <option value="Social">Social</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select id="add_status" class="form-control">
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date *</label>
+              <input type="date" id="add_date" class="form-control" value="2026-11-01" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time</label>
+              <input type="text" id="add_time" class="form-control" value="10:00 AM - 04:00 PM">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Venue *</label>
+              <input type="text" id="add_venue" class="form-control" placeholder="Auditorium Main Hall" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Capacity</label>
+              <input type="number" id="add_capacity" class="form-control" value="100" min="10">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <textarea id="add_desc" class="form-control" rows="3" placeholder="Key topics and activities..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer" style="padding: 1.25rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('addAsyncModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitAdd">Create Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Event Modal -->
+  <div class="modal-backdrop" id="editAsyncModal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Campus Event (Async Fetch PUT)</h3>
+        <button class="modal-close-btn" onclick="closeModal('editAsyncModal')">&times;</button>
+      </div>
+      <form id="editEventForm" onsubmit="handleUpdateEvent(event)">
+        <input type="hidden" id="edit_event_id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Event Title *</label>
+            <input type="text" id="edit_title" class="form-control" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="edit_category" class="form-control">
+                <option value="Technical">Technical</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Sports">Sports</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Career">Career</option>
+                <option value="Social">Social</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select id="edit_status" class="form-control">
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="date" id="edit_date" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Venue</label>
+              <input type="text" id="edit_venue" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Capacity</label>
+            <input type="number" id="edit_capacity" class="form-control" min="10">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea id="edit_desc" class="form-control" rows="3" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer" style="padding: 1.25rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('editAsyncModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitEdit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub Portal &bull; Practical 13 Asynchronous Fetch API Engine</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+  <script>
+    const API_URL = '../php/api/events_api.php';
+    let currentEvents = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchEvents();
+
+      // Debounced Search (Practical 13 Intermediate Extension)
+      const searchInput = document.getElementById('ajaxSearchInput');
+      let debounceTimer;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          fetchEvents();
+        }, 300);
+      });
+
+      // Filter listener
+      document.getElementById('ajaxCategoryFilter').addEventListener('change', fetchEvents);
+    });
+
+    /**
+     * Helper to log network activity into inspector panel
+     */
+    function logInspector(method, url, status, latencyMs, payload = null) {
+      const inspector = document.getElementById('inspectorLog');
+      const latencyElem = document.getElementById('inspectorLatency');
+      latencyElem.textContent = `Latency: ${latencyMs}ms`;
+
+      const statusClass = status >= 200 && status < 300 ? 'status-200' : (status >= 400 && status < 500 ? 'status-400' : 'status-500');
+      let html = `<div><span class="status-pill ${statusClass}">${method} ${status}</span> <strong>${url}</strong></div>`;
+      if (payload) {
+        html += `<pre style="margin: 4px 0; color: #a5f3fc;">${JSON.stringify(payload, null, 2)}</pre>`;
+      }
+      inspector.innerHTML = html;
+    }
+
+    /**
+     * 1. GET: Fetch Events via Fetch API
+     */
+    async function fetchEvents() {
+      const tbody = document.getElementById('ajaxEventsTableBody');
+      const q = document.getElementById('ajaxSearchInput').value.trim();
+      const cat = document.getElementById('ajaxCategoryFilter').value;
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+            <div style="display:inline-block; margin-right:8px; vertical-align:middle; width:20px; height:20px; border:2px solid var(--primary); border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite;"></div>
+            Fetching events asynchronously from API...
+          </td>
+        </tr>
+      `;
+
+      let queryParams = [];
+      if (q) queryParams.push(`q=${encodeURIComponent(q)}`);
+      if (cat !== 'all') queryParams.push(`category=${encodeURIComponent(cat)}`);
+      const targetUrl = API_URL + (queryParams.length > 0 ? '?' + queryParams.join('&') : '');
+
+      const t0 = performance.now();
+      try {
+        const response = await fetch(targetUrl);
+        const t1 = performance.now();
+        const latency = Math.round(t1 - t0);
+        const resData = await response.json();
+
+        logInspector('GET', targetUrl, response.status, latency, { count: resData.data ? resData.data.length : 0 });
+
+        if (resData.success && Array.isArray(resData.data)) {
+          currentEvents = resData.data;
+          renderTable(currentEvents);
+        } else {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:2rem; color:var(--danger);">${resData.message || 'Error loading events'}</td></tr>`;
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:2rem; color:var(--danger);">Network error: Failed to connect to ${API_URL}</td></tr>`;
+      }
+    }
+
+    function renderTable(events) {
+      const tbody = document.getElementById('ajaxEventsTableBody');
+      if (events.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+              No events found matching current query.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = events.map(ev => `
+        <tr id="event-row-${ev.id}">
+          <td><strong>#${ev.id}</strong></td>
+          <td>
+            <div style="font-weight: 600; color: var(--text-main);">${escapeHtml(ev.title)}</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">${escapeHtml(ev.organizer || 'StudentHub')}</div>
+          </td>
+          <td><span class="badge badge-primary">${escapeHtml(ev.category)}</span></td>
+          <td>
+            <div>${ev.event_date || ev.date}</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">${ev.event_time || ev.time || '10:00 AM'}</div>
+          </td>
+          <td>${escapeHtml(ev.venue)}</td>
+          <td>${ev.registered_count || ev.registered || 0} / ${ev.capacity || ev.seats || 100}</td>
+          <td>
+            <span class="badge ${ev.status === 'Open' ? 'badge-success' : 'badge-danger'}">${ev.status}</span>
+          </td>
+          <td>
+            <div style="display: flex; gap: 0.4rem;">
+              <button class="btn btn-primary btn-sm" onclick="openEditModal(${ev.id})">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="handleDeleteEvent(${ev.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    /**
+     * 2. POST: Create Event asynchronously without page reload
+     */
+    async function handleCreateEvent(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitAdd');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> Creating...`;
+
+      const payload = {
+        title: document.getElementById('add_title').value.trim(),
+        category: document.getElementById('add_category').value,
+        status: document.getElementById('add_status').value,
+        event_date: document.getElementById('add_date').value,
+        event_time: document.getElementById('add_time').value,
+        venue: document.getElementById('add_venue').value.trim(),
+        capacity: parseInt(document.getElementById('add_capacity').value),
+        description: document.getElementById('add_desc').value.trim()
+      };
+
+      const t0 = performance.now();
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const latency = Math.round(performance.now() - t0);
+        const data = await res.json();
+        logInspector('POST', API_URL, res.status, latency, data);
+
+        if (res.status === 201 || data.success) {
+          showToast(`Event created successfully! (HTTP ${res.status})`, 'success');
+          closeModal('addAsyncModal');
+          document.getElementById('addEventForm').reset();
+          fetchEvents(); // Refresh asynchronously
+        } else {
+          showToast(`Validation Error: ${data.message || 'Check inputs'}`, 'error');
+        }
+      } catch (err) {
+        showToast('Request failed. Check network or server console.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Create Event';
+      }
+    }
+
+    /**
+     * 3. PUT: Update Event asynchronously
+     */
+    function openEditModal(id) {
+      const ev = currentEvents.find(e => e.id == id);
+      if (!ev) return;
+
+      document.getElementById('edit_event_id').value = ev.id;
+      document.getElementById('edit_title').value = ev.title;
+      document.getElementById('edit_category').value = ev.category;
+      document.getElementById('edit_status').value = ev.status;
+      document.getElementById('edit_date').value = ev.event_date || ev.date;
+      document.getElementById('edit_venue').value = ev.venue;
+      document.getElementById('edit_capacity').value = ev.capacity || ev.seats || 100;
+      document.getElementById('edit_desc').value = ev.description;
+
+      document.getElementById('editAsyncModal').style.display = 'flex';
+    }
+
+    async function handleUpdateEvent(e) {
+      e.preventDefault();
+      const id = parseInt(document.getElementById('edit_event_id').value);
+      const btn = document.getElementById('btnSubmitEdit');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> Saving...`;
+
+      const payload = {
+        id: id,
+        title: document.getElementById('edit_title').value.trim(),
+        category: document.getElementById('edit_category').value,
+        status: document.getElementById('edit_status').value,
+        event_date: document.getElementById('edit_date').value,
+        venue: document.getElementById('edit_venue').value.trim(),
+        capacity: parseInt(document.getElementById('edit_capacity').value),
+        description: document.getElementById('edit_desc').value.trim()
+      };
+
+      const t0 = performance.now();
+      try {
+        const res = await fetch(API_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const latency = Math.round(performance.now() - t0);
+        const data = await res.json();
+        logInspector('PUT', `${API_URL}?id=${id}`, res.status, latency, data);
+
+        if (res.ok && data.success) {
+          showToast(`Event #${id} updated! (HTTP ${res.status})`, 'success');
+          closeModal('editAsyncModal');
+          fetchEvents();
+        } else {
+          showToast(`Update error: ${data.message}`, 'error');
+        }
+      } catch (err) {
+        showToast('Failed to update event.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Save Changes';
+      }
+    }
+
+    /**
+     * 4. DELETE: Remove Event asynchronously without full reload
+     */
+    async function handleDeleteEvent(id) {
+      if (!confirm(`Are you sure you want to delete Event #${id} via AJAX?`)) {
+        return;
+      }
+
+      const row = document.getElementById(`event-row-${id}`);
+      if (row) row.classList.add('fade-out');
+
+      const t0 = performance.now();
+      try {
+        const res = await fetch(API_URL, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: id })
+        });
+        const latency = Math.round(performance.now() - t0);
+        const data = await res.json();
+        logInspector('DELETE', `${API_URL}?id=${id}`, res.status, latency, data);
+
+        if (res.ok && data.success) {
+          showToast(`Event #${id} deleted! (HTTP ${res.status})`, 'warning');
+          if (row) row.remove();
+        } else {
+          if (row) row.classList.remove('fade-out');
+          showToast(`Delete failed: ${data.message}`, 'error');
+        }
+      } catch (err) {
+        if (row) row.classList.remove('fade-out');
+        showToast('Delete network request failed.', 'error');
+      }
+    }
+
+    function openAddModal() {
+      document.getElementById('addAsyncModal').style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      }[tag] || tag));
+    }
+  </script>
+</body>
+</html>

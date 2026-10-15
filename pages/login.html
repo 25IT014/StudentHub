@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign In to StudentHub - Access student or administrator dashboard.">
+  <title>Login | StudentHub Portal</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub</h1>
+          <p>Charusat Campus Digital Portal</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html" class="active" aria-current="page">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">Account Login</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    <div class="layout-centered" style="max-width: 480px;">
+      
+      <div class="form-card">
+        <div class="section-header" style="border: none; margin-bottom: 1.25rem; text-align: center; display: block;">
+          <h2>Sign In to StudentHub</h2>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.35rem;">
+            Select your account role and enter your verified credentials.
+          </p>
+        </div>
+
+        <!-- Login Form (Practical 10) -->
+        <form id="loginForm" action="../php/login_user.php" method="POST">
+          
+          <!-- Role Selector -->
+          <div class="form-group">
+            <label for="loginRole" class="form-label">
+              <span>Account Role</span>
+            </label>
+            <select id="loginRole" name="role" class="form-control" required>
+              <option value="student">Student Portal</option>
+              <option value="admin">Administrator Panel</option>
+            </select>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="loginEmail" class="form-label">
+              <span>Email Address</span>
+            </label>
+            <input type="email" id="loginEmail" name="email" class="form-control" placeholder="student@charusat.edu.in" required>
+            <span class="error-message" id="loginEmailError"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="loginPassword" class="form-label">
+              <span>Password</span>
+            </label>
+            <input type="password" id="loginPassword" name="password" class="form-control" placeholder="••••••••" required>
+            <span class="error-message" id="loginPasswordError"></span>
+          </div>
+
+          <!-- Remember Me Token Checkbox (Practical 10) -->
+          <div class="form-group">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label class="checkbox-label" for="rememberMe">
+                <input type="checkbox" id="rememberMe" name="remember_me" value="1">
+                <span>Remember me on this device</span>
+              </label>
+              <a href="faq.html" style="font-size: 0.85rem;">Forgot Password?</a>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.25rem;">
+            <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-lg btn-block">
+              Secure Sign In
+            </button>
+          </div>
+
+          <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.85rem;">
+            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem;">Demo Credentials for Testing:</div>
+            <div><strong>Student:</strong> <code>student@charusat.edu.in</code> / <code>Password@123</code></div>
+            <div><strong>Admin:</strong> <code>admin@charusat.edu.in</code> / <code>Admin@123</code></div>
+          </div>
+
+          <div style="text-align: center; margin-top: 1.25rem; font-size: 0.92rem; color: var(--text-muted);">
+            Don't have an account yet? <a href="register.html" style="font-weight: 600;">Register Here</a>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">StudentHub</h3>
+        <p style="font-size: 0.88rem;">CHARUSAT University Campus Student Portal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Campus Office</h4>
+        <p style="font-size: 0.88rem;">Faculty of Technology & Engineering, CHARUSAT</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub. CHARUSAT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+  <script>
+    // Client-side quick redirection support if opened directly as file
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      // If running directly in file:// protocol or purely static
+      if (window.location.protocol === 'file:' || !this.action.includes('http')) {
+        e.preventDefault();
+        const role = document.getElementById('loginRole').value;
+        const email = document.getElementById('loginEmail').value;
+        showToast(`Signing in as ${role}...`, 'success');
+        setTimeout(() => {
+          if (role === 'admin') {
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        }, 800);
+      }
+    });
+  </script>
+</body>
+</html>

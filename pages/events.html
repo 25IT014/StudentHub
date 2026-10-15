@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore campus workshops, hackathons, sports meets, and cultural festivals at CHARUSAT.">
+  <title>Campus Events | StudentHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub</h1>
+          <p>Charusat Campus Digital Portal</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active" aria-current="page">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">Campus Events</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    
+    <div class="section-header">
+      <div>
+        <h2>Campus Events & Workshops</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">
+          Browse and register for upcoming college hackathons, technical conferences, and cultural events.
+        </p>
+      </div>
+      <span class="badge badge-primary" id="eventsCountBadge">Loading Events...</span>
+    </div>
+
+    <!-- Filter, Search, and Sort Bar (Practical 6) -->
+    <div class="filter-bar" role="search" aria-label="Events Filter Bar">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="eventSearchInput" class="search-input" placeholder="Search events by title, keyword, or venue..." aria-label="Search events">
+      </div>
+
+      <div class="filter-controls">
+        <select id="eventCategoryFilter" class="form-control" style="width: auto;" aria-label="Filter by Category">
+          <option value="all">All Categories</option>
+          <option value="Technical">Technical</option>
+          <option value="Workshop">Workshops</option>
+          <option value="Sports">Sports</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Career">Career & Placement</option>
+        </select>
+
+        <select id="eventStatusFilter" class="form-control" style="width: auto;" aria-label="Filter by Status">
+          <option value="all">All Status</option>
+          <option value="Open">Open for Registration</option>
+          <option value="Closed">Closed / Full</option>
+        </select>
+
+        <select id="eventSortSelect" class="form-control" style="width: auto;" aria-label="Sort Events">
+          <option value="date-asc">Date: Upcoming First</option>
+          <option value="date-desc">Date: Latest First</option>
+          <option value="title-asc">Title: A to Z</option>
+          <option value="seats-desc">Seats: Highest Available</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Dynamic Events Grid rendered via Fetch API (Practical 6) -->
+    <section class="events-grid" id="eventsGrid" aria-label="Events Listing" aria-live="polite">
+      <!-- Injected dynamically by events.js -->
+    </section>
+
+    <!-- Pagination Controls (Practical 6) -->
+    <div class="pagination-container" id="eventsPagination" aria-label="Events Pagination">
+      <!-- Injected dynamically by events.js -->
+    </div>
+
+  </main>
+
+  <!-- Event Detail Modal (Practical 4 & 13) -->
+  <div class="modal-backdrop" id="eventDetailModal" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="eventModalTitle">Event Details</h3>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body" id="eventModalBody">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">StudentHub</h3>
+        <p style="font-size: 0.88rem;">CHARUSAT University Campus Student Portal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Campus Office</h4>
+        <p style="font-size: 0.88rem;">CHARUSAT Campus, Changa - 388421</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub. CHARUSAT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+  <script src="../js/events.js"></script>
+</body>
+</html>

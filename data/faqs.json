@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "question": "What is StudentHub?",
+    "answer": "StudentHub is an all-in-one digital campus portal designed to centralize student registrations, event discovery, academic profiles, campus notices, and administrative workflows in a modern, accessible interface.",
+    "category": "General"
+  },
+  {
+    "id": 2,
+    "question": "How do I register for an upcoming campus event?",
+    "answer": "Navigate to the Events page, browse available workshops, hackathons, or fests, and click the 'Register' button on the desired event card. Confirm your student ID to secure your seat.",
+    "category": "Events"
+  },
+  {
+    "id": 3,
+    "question": "Can I edit my registration details after submitting?",
+    "answer": "Yes, you can manage and update your personal information by visiting your Profile page or through the Student Dashboard edit profile section.",
+    "category": "Account"
+  },
+  {
+    "id": 4,
+    "question": "What are the password requirements for account registration?",
+    "answer": "Passwords must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special symbol (@$!%*?&).",
+    "category": "Security"
+  },
+  {
+    "id": 5,
+    "question": "How does the Remember-Me feature work securely?",
+    "answer": "StudentHub generates a cryptographically secure random token (32 bytes), hashes it using SHA-256 before storing it in the database, and issues a secure HTTP-only cookie. We avoid insecure plain-text or predictable tokens.",
+    "category": "Security"
+  },
+  {
+    "id": 6,
+    "question": "How do administrators publish and manage events?",
+    "answer": "Administrators can log in to the Admin Dashboard and access Event Management CRUD, where they can add, edit, or delete events, upload posters with validated file checks, and view attendance metrics.",
+    "category": "Admin"
+  },
+  {
+    "id": 7,
+    "question": "What file formats are accepted for event poster uploads?",
+    "answer": "Allowed poster formats are JPG, JPEG, PNG, and WebP, with a strict maximum file size limit of 2MB.",
+    "category": "Admin"
+  },
+  {
+    "id": 8,
+    "question": "How can I switch between Light and Dark themes?",
+    "answer": "Click the sun/moon theme toggle button in the top navigation bar. Your preference is automatically remembered in your browser's localStorage.",
+    "category": "UI & Features"
+  },
+  {
+    "id": 9,
+    "question": "Is the portal mobile-friendly and responsive?",
+    "answer": "Yes, StudentHub is built using mobile-first CSS Flexbox and Grid layouts, optimized for smartphones, tablets, and wide desktop displays.",
+    "category": "UI & Features"
+  },
+  {
+    "id": 10,
+    "question": "Where can I find academic notices and lab submission deadlines?",
+    "answer": "Latest notices and upcoming lab deadlines are prominently displayed on the Home page aside panel and on your personal Student Dashboard.",
+    "category": "General"
+  },
+  {
+    "id": 11,
+    "question": "What happens if a session expires due to inactivity?",
+    "answer": "For security reasons, user sessions automatically expire after 15 minutes of inactivity. You will be safely logged out and prompted to sign in again.",
+    "category": "Security"
+  },
+  {
+    "id": 12,
+    "question": "Can I export student lists to CSV format?",
+    "answer": "Yes, administrators have access to an 'Export to CSV' button in the Student Management CRUD module to download current student records.",
+    "category": "Admin"
+  },
+  {
+    "id": 13,
+    "question": "How does the offline cache feature work in StudentHub?",
+    "answer": "When events and student directories are fetched via the Fetch API, the latest valid responses are cached in localStorage, allowing fast browsing even when your network is slow or offline.",
+    "category": "UI & Features"
+  },
+  {
+    "id": 14,
+    "question": "Who can submit feedback or contact the campus administration?",
+    "answer": "Any student, faculty member, or visitor can use the Contact Us and Feedback pages to submit queries, compliments, or issues directly to the college administration.",
+    "category": "General"
+  },
+  {
+    "id": 15,
+    "question": "How are duplicate email and student ID registrations prevented?",
+    "answer": "Both frontend real-time validation and server-side MySQL prepared statement queries ensure that email addresses and roll numbers remain unique across the entire database.",
+    "category": "Security"
+  },
+  {
+    "id": 16,
+    "question": "What web standards and accessibility guidelines does StudentHub adhere to?",
+    "answer": "StudentHub utilizes HTML5 semantic tags, skip-to-content links, breadcrumb navigation, ARIA attributes, keyboard navigation accessibility, and contrast-compliant color schemes.",
+    "category": "Accessibility"
+  }
+]

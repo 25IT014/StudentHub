@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Frequently Asked Questions about StudentHub registration, events, and portal navigation.">
+  <title>Frequently Asked Questions | StudentHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub</h1>
+          <p>Charusat Campus Digital Portal</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="faq.html" class="active" aria-current="page">FAQ</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">Frequently Asked Questions</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    
+    <div class="section-header">
+      <div>
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">
+          Find immediate answers to common questions about accounts, event participation, and portal features.
+        </p>
+      </div>
+    </div>
+
+    <!-- Search Box for FAQs -->
+    <div class="filter-bar">
+      <div class="search-input-wrapper" style="min-width: 100%;">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="faqSearchInput" class="search-input" placeholder="Type a keyword to search FAQs (e.g. password, event, session)..." aria-label="Search FAQs">
+      </div>
+    </div>
+
+    <!-- Collapsible FAQ Accordion (Practical 4 Dynamic UI) -->
+    <div class="faq-accordion" id="faqAccordion">
+      
+      <div class="faq-item active">
+        <button class="faq-question-btn" aria-expanded="true">
+          <span>What is StudentHub and who is it built for?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane" style="max-height: 200px;">
+          <p>StudentHub is an all-in-one digital campus portal designed to centralize student registrations, event discovery, academic profiles, campus notices, and administrative workflows in a modern, accessible interface.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>How do I register for an upcoming campus event?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>Navigate to the Events page, browse available workshops, hackathons, or fests, and click the 'Join' button on the desired event card. Confirm your student ID to secure your seat.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>What are the password security requirements for registration?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>Passwords must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one numeric digit, and one special symbol (@$!%*?&). A live password strength meter guides you during input.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>How does the Remember-Me feature work securely?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>StudentHub generates a cryptographically secure random token (32 bytes), hashes it using SHA-256 before storing it in the database, and issues a secure HTTP-only cookie to prevent session spoofing.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>How can I switch between Light and Dark themes?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>Click the theme toggle button in the header bar. Your preference is automatically saved in your browser's localStorage and remembered on every visit.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>What happens if my session expires due to inactivity?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>For security reasons, user sessions automatically expire after 15 minutes of inactivity. You will be safely logged out and prompted to sign in again to protect your data.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>How can administrators upload event posters securely?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>Administrators can log into the Admin Console and upload event posters. File type is strictly validated for JPG, PNG, and WebP formats, with a maximum file size restriction of 2MB.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>Can I access StudentHub when offline or on a slow network?</span>
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer-pane">
+          <p>Yes, all events and student directories fetched via the Fetch API are automatically cached in localStorage for reliable offline fallback browsing.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Need More Help Banner -->
+    <div class="card" style="margin-top: 2.5rem; text-align: center; padding: 2rem;">
+      <h3>Still Have Questions?</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.25rem;">Our campus support desk is ready to assist you during college hours.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <a href="contact.html" class="btn btn-primary">Contact Support</a>
+        <a href="feedback.html" class="btn btn-secondary">Submit Feedback</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">StudentHub</h3>
+        <p style="font-size: 0.88rem;">CHARUSAT University Campus Student Portal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Campus Office</h4>
+        <p style="font-size: 0.88rem;">CHARUSAT Campus, Changa - 388421</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub. CHARUSAT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+  <script>
+    // Live filter search for FAQs
+    const faqSearchInput = document.getElementById('faqSearchInput');
+    if (faqSearchInput) {
+      faqSearchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        document.querySelectorAll('.faq-item').forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(query) ? 'block' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>

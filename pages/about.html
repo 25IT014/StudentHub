@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About StudentHub - The comprehensive digital student portal at CHARUSAT.">
+  <title>About Us | StudentHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub</h1>
+          <p>Charusat Campus Digital Portal</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active" aria-current="page">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">About Us</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    <div class="layout-grid">
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <section class="content-section">
+          <div class="section-header">
+            <h2>About StudentHub</h2>
+            <span class="badge badge-primary">Mission & Vision</span>
+          </div>
+          <p>
+            StudentHub is a modern digital ecosystem crafted to eliminate campus friction. Designed under the 
+            <strong>Web Development Frameworks (ITUE203)</strong> syllabus at 
+            <strong>Charotar University of Science and Technology (CHARUSAT)</strong>, it brings all essential campus services 
+            into a unified, intuitive, and accessible interface.
+          </p>
+          <p>
+            From prospective student registration to event organization, profile management, and live administrative moderation, 
+            StudentHub embodies best practices in modern web standards, accessibility (WCAG), and responsive design.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <div class="section-header">
+            <h2>Key Capabilities</h2>
+            <span class="badge badge-success">Feature Set</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
+            <div style="padding: 1.25rem; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🔒 Secure Authentication</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Bcrypt password hashing, PHP session fixation defense, RBAC, and remember-me tokens.</p>
+            </div>
+            <div style="padding: 1.25rem; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📅 Dynamic Event Hub</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Fetch API integration, real-time search, filters, pagination, and poster uploads.</p>
+            </div>
+            <div style="padding: 1.25rem; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">📊 Data Management</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Full CRUD operations with MySQL PDO prepared statements, CSV exports, and audit trails.</p>
+            </div>
+            <div style="padding: 1.25rem; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">♿ Accessibility First</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Semantic HTML5 structure, ARIA labels, skip navigation links, and theme personalization.</p>
+            </div>
+          </div>
+        </section>
+
+        <article class="content-article">
+          <div class="section-header">
+            <h2>Technology Architecture</h2>
+            <span class="badge badge-info">Stack Overview</span>
+          </div>
+          <p>
+            The project follows a clean decoupled structure:
+          </p>
+          <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-muted); line-height: 1.8;">
+            <li><strong>Frontend:</strong> Semantic HTML5, CSS3 Grid & Flexbox, Vanilla JavaScript ES6+ (Fetch API, DOM manipulation).</li>
+            <li><strong>Backend Processing:</strong> PHP 8.2 with Object-Oriented PDO connection, server-side data sanitization, and RESTful JSON APIs.</li>
+            <li><strong>Database:</strong> Normalized MySQL schema (3NF) with primary keys, foreign key constraints, indexes, and audit logs.</li>
+            <li><strong>Storage:</strong> Structured CSV / JSON file logs alongside relational MySQL tables.</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <aside class="content-aside">
+        <div class="section-header">
+          <h2>Department Info</h2>
+        </div>
+        <p><strong>Institution:</strong> Charotar University of Science and Technology (CHARUSAT)</p>
+        <p><strong>Faculty:</strong> Faculty of Technology and Engineering (FTE)</p>
+        <p><strong>Course:</strong> Web Development Frameworks (ITUE203)</p>
+        <p><strong>Semester:</strong> 3rd Semester, 2026-27 (ODD)</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.25rem 0;">
+        <h4 style="margin-bottom: 0.75rem;">Faculty Mentors</h4>
+        <ul style="padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
+          <li>Dr. Martin Parmar (CSPIT-CE)</li>
+          <li>Dr. Mrugendra Rahevar (CSPIT-CE)</li>
+          <li>Mr. Ravi Patel (CSPIT-IT)</li>
+          <li>Mr. Dhaval Patel (CSPIT-IT)</li>
+          <li>Dr. Jalpesh Vasa (CSPIT-AIML)</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">StudentHub</h3>
+        <p style="font-size: 0.88rem;">Charusat Campus Digital Portal for Web Development Frameworks practical coursework.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Campus Office</h4>
+        <p style="font-size: 0.88rem;">CHARUSAT Campus, Changa - 388421, Gujarat, India</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub. CHARUSAT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+</body>
+</html>

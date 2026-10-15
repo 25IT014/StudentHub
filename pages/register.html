@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Register for StudentHub - Student Account Registration Form with Real-Time Validation.">
+  <title>Student Registration | StudentHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub</h1>
+          <p>Charusat Campus Digital Portal</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="register.html" class="active" aria-current="page">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">Student Registration</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    <div class="layout-centered">
+      
+      <div class="form-card">
+        <div class="section-header" style="border: none; margin-bottom: 1rem; text-align: center; display: block;">
+          <h2>Create Your StudentHub Account</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
+            Join the digital campus community to access events, notices, and course management.
+          </p>
+        </div>
+
+        <!-- Registration Form (Practical 5 & Practical 7/9) -->
+        <form id="registrationForm" action="../php/process_register.php" method="POST" novalidate>
+          
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="regName" class="form-label">
+              <span>Full Name <span class="required-star">*</span></span>
+              <span class="form-help">Letters only (min 3 chars)</span>
+            </label>
+            <input type="text" id="regName" name="name" class="form-control" placeholder="e.g. Aarav Sharma" required aria-describedby="regNameError">
+            <span class="error-message" id="regNameError" role="alert"></span>
+          </div>
+
+          <!-- Email & Mobile -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regEmail" class="form-label">
+                <span>College Email Address <span class="required-star">*</span></span>
+              </label>
+              <input type="email" id="regEmail" name="email" class="form-control" placeholder="student@charusat.edu.in" required aria-describedby="regEmailError">
+              <span class="error-message" id="regEmailError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="regPhone" class="form-label">
+                <span>Mobile Number <span class="required-star">*</span></span>
+                <span class="form-help">10 digits</span>
+              </label>
+              <input type="tel" id="regPhone" name="phone" class="form-control" placeholder="98XXXXXXXX" maxlength="10" required aria-describedby="regPhoneError">
+              <span class="error-message" id="regPhoneError" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Course & Year Selection -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regCourse" class="form-label">
+                <span>Degree / Course <span class="required-star">*</span></span>
+              </label>
+              <select id="regCourse" name="course" class="form-control" required aria-describedby="regCourseError">
+                <option value="">-- Select Your Degree --</option>
+                <option value="B.Tech IT">B.Tech - Information Technology</option>
+                <option value="B.Tech CE">B.Tech - Computer Engineering</option>
+                <option value="B.Tech CSE">B.Tech - Computer Science & Engineering</option>
+                <option value="B.Tech AIML">B.Tech - AI & Machine Learning</option>
+                <option value="BCA">Bachelor of Computer Applications (BCA)</option>
+                <option value="MCA">Master of Computer Applications (MCA)</option>
+              </select>
+              <span class="error-message" id="regCourseError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>Academic Year <span class="required-star">*</span></span>
+              </label>
+              <div class="radio-group" role="radiogroup" aria-label="Academic Year">
+                <label class="radio-label"><input type="radio" name="year" value="1st Year" required> 1st</label>
+                <label class="radio-label"><input type="radio" name="year" value="2nd Year"> 2nd</label>
+                <label class="radio-label"><input type="radio" name="year" value="3rd Year" checked> 3rd</label>
+                <label class="radio-label"><input type="radio" name="year" value="4th Year"> 4th</label>
+              </div>
+              <span class="error-message" id="regYearError" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Gender Radio -->
+          <div class="form-group">
+            <label class="form-label">
+              <span>Gender <span class="required-star">*</span></span>
+            </label>
+            <div class="radio-group" role="radiogroup" aria-label="Gender Selection">
+              <label class="radio-label"><input type="radio" name="gender" value="Male" required> Male</label>
+              <label class="radio-label"><input type="radio" name="gender" value="Female"> Female</label>
+              <label class="radio-label"><input type="radio" name="gender" value="Other"> Other</label>
+            </div>
+            <span class="error-message" id="regGenderError" role="alert"></span>
+          </div>
+
+          <!-- Password & Confirm Password with Strength Meter (Practical 5) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regPassword" class="form-label">
+                <span>Create Password <span class="required-star">*</span></span>
+              </label>
+              <input type="password" id="regPassword" name="password" class="form-control" placeholder="••••••••" required aria-describedby="regPasswordError">
+              <!-- Password Strength Meter -->
+              <div class="password-meter-container" aria-live="polite">
+                <div class="password-meter-bar">
+                  <div class="password-meter-fill" id="passwordStrengthFill"></div>
+                </div>
+                <div class="password-meter-text" id="passwordStrengthText">Enter password to see strength</div>
+              </div>
+              <span class="error-message" id="regPasswordError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="regConfirmPassword" class="form-label">
+                <span>Confirm Password <span class="required-star">*</span></span>
+              </label>
+              <input type="password" id="regConfirmPassword" name="confirm_password" class="form-control" placeholder="••••••••" required aria-describedby="regConfirmPasswordError">
+              <span class="error-message" id="regConfirmPasswordError" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- Custom Canvas CAPTCHA (Practical 5 Advanced Extension) -->
+          <div class="form-group" style="margin-top: 0.5rem;">
+            <label for="regCaptcha" class="form-label">
+              <span>Security Verification (CAPTCHA) <span class="required-star">*</span></span>
+            </label>
+            <div class="captcha-container">
+              <canvas id="captchaCanvas" width="160" height="42" class="captcha-canvas" aria-label="CAPTCHA Image"></canvas>
+              <button type="button" class="captcha-refresh-btn" id="captchaRefreshBtn" title="Refresh CAPTCHA">🔄 Refresh Code</button>
+            </div>
+            <input type="text" id="regCaptcha" name="captcha" class="form-control" placeholder="Enter characters displayed above" required style="max-width: 240px;" aria-describedby="regCaptchaError">
+            <span class="error-message" id="regCaptchaError" role="alert"></span>
+          </div>
+
+          <!-- Terms and Conditions Checkbox -->
+          <div class="form-group">
+            <div class="checkbox-group">
+              <label class="checkbox-label" for="regTerms">
+                <input type="checkbox" id="regTerms" name="terms" required aria-describedby="regTermsError">
+                <span>I agree to the <a href="about.html" target="_blank">Student Code of Conduct</a> and privacy policy.</span>
+              </label>
+            </div>
+            <span class="error-message" id="regTermsError" role="alert"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <div style="margin-top: 1rem;">
+            <button type="submit" id="submitRegBtn" class="btn btn-primary btn-lg btn-block">
+              Complete Student Registration
+            </button>
+          </div>
+
+          <div style="text-align: center; margin-top: 1.5rem; font-size: 0.92rem; color: var(--text-muted);">
+            Already have a registered account? <a href="login.html" style="font-weight: 600;">Sign In here</a>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">StudentHub</h3>
+        <p style="font-size: 0.88rem;">CHARUSAT University Campus Student Portal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Campus Office</h4>
+        <p style="font-size: 0.88rem;">CHARUSAT Campus, Changa</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub. CHARUSAT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+</body>
+</html>

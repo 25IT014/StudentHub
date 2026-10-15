@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StudentHub Administrator Console - Manage students, campus events, audit logs, and analytics.">
+  <title>Admin Dashboard | StudentHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <img src="../images/logo.png" alt="StudentHub Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>StudentHub Admin Console</h1>
+          <p>Role-Based Campus Control Panel</p>
+        </div>
+      </a>
+      <div class="header-controls">
+        <span class="badge badge-warning" style="font-size: 0.82rem;">Super Admin</span>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">🌙 Dark Mode</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" role="navigation" aria-label="Primary Navigation">
+    <div class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html" class="active" aria-current="page">Admin</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="breadcrumb-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="index.html">Home</a>
+      <span class="divider">/</span>
+      <span class="current" aria-current="location">Admin Dashboard</span>
+    </nav>
+  </div>
+
+  <main class="main-content" id="main-content">
+    
+    <!-- Top Metrics Overview (Practical 14) -->
+    <section class="stats-grid" aria-label="System Metrics">
+      <div class="stat-card">
+        <div class="stat-icon primary">👥</div>
+        <div class="stat-info">
+          <h3>1,050</h3>
+          <p>Total Registered Users</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon success">🎓</div>
+        <div class="stat-info">
+          <h3>842</h3>
+          <p>Active Students</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon warning">📅</div>
+        <div class="stat-info">
+          <h3>16</h3>
+          <p>Active Events</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon info">🎟️</div>
+        <div class="stat-info">
+          <h3>620</h3>
+          <p>Event Registrations</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics Chart Section (Practical 14 Advanced Extension) -->
+    <section class="content-section" style="margin-bottom: 2rem;">
+      <div class="section-header">
+        <div>
+          <h2>Event Registrations Analytics (2026-27)</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Monthly trend of campus event participations.</p>
+        </div>
+        <span class="badge badge-success">Live Aggregation</span>
+      </div>
+      
+      <div style="background: var(--bg-surface-elevated); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center;">
+        <canvas id="analyticsChart" width="800" height="260" style="max-width: 100%; height: auto;"></canvas>
+      </div>
+    </section>
+
+    <!-- Student Management CRUD Module (Practical 11) -->
+    <section class="content-section" style="margin-bottom: 2rem;" id="studentCrudSection">
+      <div class="section-header">
+        <div>
+          <h2>Student Management Directory (CRUD)</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Search, filter, paginate, and manage student records.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <span class="badge badge-primary" id="studentCountBadge">Loading...</span>
+          <button class="btn btn-secondary btn-sm" id="exportCsvBtn">📥 Export CSV</button>
+          <button class="btn btn-primary btn-sm" data-modal-target="addStudentModal">+ Add Student</button>
+        </div>
+      </div>
+
+      <!-- Filter Controls for Student CRUD -->
+      <div class="filter-bar" style="margin-bottom: 1.25rem;">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="studentSearchInput" class="search-input" placeholder="Search by name, student ID, email, or department...">
+        </div>
+        <div class="filter-controls">
+          <select id="studentDeptFilter" class="form-control" style="width: auto;">
+            <option value="all">All Departments</option>
+            <option value="Information Technology">IT</option>
+            <option value="Computer Engineering">CE</option>
+            <option value="Computer Science">CSE</option>
+            <option value="Artificial Intelligence">AIML</option>
+            <option value="Computer Applications">Computer Applications</option>
+          </select>
+          <select id="studentYearFilter" class="form-control" style="width: auto;">
+            <option value="all">All Years</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Students Data Table -->
+      <div class="table-responsive">
+        <table class="data-table" aria-label="Student Directory Table">
+          <thead>
+            <tr>
+              <th>Roll No</th>
+              <th>Student Name & Email</th>
+              <th>Department</th>
+              <th>Program</th>
+              <th>Year</th>
+              <th>CGPA</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="studentsTableBody">
+            <!-- Dynamically populated by js/students.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-container" id="studentsPagination">
+        <!-- Pagination by students.js -->
+      </div>
+    </section>
+
+    <!-- Audit Logs Section (Practical 14) -->
+    <section class="content-section">
+      <div class="section-header">
+        <div>
+          <h2>System Audit Trail & Security Logs</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Traceable admin actions and user authentication events.</p>
+        </div>
+        <span class="badge badge-info">Security Monitored</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Actor</th>
+              <th>Details</th>
+              <th>IP Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026-10-13 18:45:10</td>
+              <td><span class="badge badge-success">USER_REGISTER</span></td>
+              <td>Aarav Sharma (24IT001)</td>
+              <td>New student account registered with password hash</td>
+              <td>127.0.0.1</td>
+            </tr>
+            <tr>
+              <td>2026-10-13 19:12:05</td>
+              <td><span class="badge badge-primary">USER_LOGIN</span></td>
+              <td>admin@charusat.edu.in</td>
+              <td>Session regenerated, remember token set</td>
+              <td>127.0.0.1</td>
+            </tr>
+            <tr>
+              <td>2026-10-13 19:30:22</td>
+              <td><span class="badge badge-info">EVENT_UPDATE</span></td>
+              <td>Admin (admin)</td>
+              <td>Updated capacity for Hackathon 2026 to 120 seats</td>
+              <td>127.0.0.1</td>
+            </tr>
+            <tr>
+              <td>2026-10-13 20:05:44</td>
+              <td><span class="badge badge-warning">FILE_UPLOAD</span></td>
+              <td>Admin (admin)</td>
+              <td>Event poster uploaded: poster_670d8a.png (validated)</td>
+              <td>127.0.0.1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Add Student Modal Dialog (Practical 11) -->
+  <div class="modal-backdrop" id="addStudentModal" role="dialog" aria-modal="true" aria-labelledby="addStudentModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addStudentModalTitle">Add New Student</h3>
+        <button class="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="addStudentForm" onsubmit="event.preventDefault(); showToast('Student added successfully to directory!', 'success'); closeModal('addStudentModal');">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Student ID / Roll No</label>
+              <input type="text" class="form-control" placeholder="24IT150" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" placeholder="Student Name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" placeholder="student@charusat.edu.in" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Department</label>
+              <select class="form-control" required>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Computer Engineering">Computer Engineering</option>
+                <option value="Computer Science & Engineering">Computer Science</option>
+                <option value="Artificial Intelligence">AI & Machine Learning</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Degree Course</label>
+              <input type="text" class="form-control" placeholder="B.Tech IT" required>
+            </div>
+          </div>
+          <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary" data-modal-close>Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Student</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Student Details Modal -->
+  <div class="modal-backdrop" id="studentDetailModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="studentModalTitle">Student Details</h3>
+        <button class="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body" id="studentModalBody">
+        <!-- Rendered by js/students.js -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">StudentHub</h3>
+        <p style="font-size: 0.88rem;">CHARUSAT University Campus Student Portal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="admin.html">Admin Panel</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Campus Office</h4>
+        <p style="font-size: 0.88rem;">CHARUSAT Campus, Changa - 388421</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026-27 StudentHub. CHARUSAT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/Script.js"></script>
+  <script src="../js/students.js"></script>
+  <script>
+    // Canvas Analytics Chart Renderer (Practical 14 Advanced Extension)
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('analyticsChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const data = [
+        { month: 'Jul', registrations: 45 },
+        { month: 'Aug', registrations: 85 },
+        { month: 'Sep', registrations: 160 },
+        { month: 'Oct', registrations: 240 },
+        { month: 'Nov', registrations: 190 },
+        { month: 'Dec', registrations: 110 }
+      ];
+
+      const maxVal = 260;
+      const padding = 40;
+      const chartWidth = canvas.width - padding * 2;
+      const chartHeight = canvas.height - padding * 2;
+      const barWidth = 45;
+      const spacing = chartWidth / data.length;
+
+      // Draw Axes
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padding, padding);
+      ctx.lineTo(padding, canvas.height - padding);
+      ctx.lineTo(canvas.width - padding, canvas.height - padding);
+      ctx.stroke();
+
+      // Draw Bars
+      data.forEach((item, index) => {
+        const x = padding + index * spacing + (spacing - barWidth) / 2;
+        const barHeight = (item.registrations / maxVal) * chartHeight;
+        const y = canvas.height - padding - barHeight;
+
+        // Gradient Bar
+        const grad = ctx.createLinearGradient(x, y, x, canvas.height - padding);
+        grad.addColorStop(0, '#4f46e5');
+        grad.addColorStop(1, '#818cf8');
+
+        ctx.fillStyle = grad;
+        ctx.fillRect(x, y, barWidth, barHeight);
+
+        // Labels
+        ctx.fillStyle = '#64748b';
+        ctx.font = '13px "Outfit", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.month, x + barWidth / 2, canvas.height - padding + 20);
+
+        // Value on bar
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 12px "Outfit", sans-serif';
+        ctx.fillText(item.registrations, x + barWidth / 2, y - 8);
+      });
+    });
+  </script>
+</body>
+</html>

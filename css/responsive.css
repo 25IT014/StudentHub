@@ -1,0 +1,205 @@
+/* ==========================================================================
+   StudentHub Portal - Responsive CSS System (Practical 3)
+   Mobile-First Breakdown: Mobile (<768px), Tablet (768px-1024px), Desktop (>1024px)
+   ========================================================================== */
+
+/* --- Tablet Breakpoint (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .slide {
+    padding: 3rem 2rem;
+    min-height: 300px;
+  }
+  .slide-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* --- Mobile Breakpoint (max-width: 768px) --- */
+@media (max-width: 768px) {
+  /* Header Adjustments */
+  header.site-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .brand-info h1 {
+    font-size: 1.35rem;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Hamburger Menu Toggle Display */
+  .menu-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Navigation Collapsible Drawer */
+  nav.main-nav {
+    position: relative;
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out;
+    background: #0f172a;
+    gap: 0;
+  }
+
+  .nav-links.open {
+    max-height: 520px;
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-links li a {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Main Content & Spacing */
+  main.main-content {
+    padding: 0 1rem;
+    margin: 1.25rem auto 2rem auto;
+  }
+
+  /* Grids & Cards */
+  .dashboard-container,
+  .events-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Form Elements */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  /* Filter Bar */
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input-wrapper {
+    min-width: 100%;
+  }
+
+  .filter-controls {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .filter-controls select {
+    width: 100%;
+  }
+
+  /* Hero Slider */
+  .slide {
+    padding: 2.25rem 1.25rem 4.5rem 1.25rem;
+    min-height: 280px;
+  }
+
+  .slide-title {
+    font-size: 1.45rem;
+  }
+
+  .slide-desc {
+    font-size: 0.92rem;
+  }
+
+  .slider-controls {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .slider-indicators {
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.25rem 1.5rem 1.25rem;
+    gap: 1.5rem;
+  }
+
+  /* Modal Dialog */
+  .modal-dialog {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .modal-body {
+    padding: 1.25rem;
+  }
+}
+
+/* --- High Contrast / Accessibility Media Query --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Print Stylesheet --- */
+@media print {
+  header.site-header,
+  nav.main-nav,
+  .hero-slider-container,
+  .theme-toggle-btn,
+  .menu-toggle-btn,
+  .filter-bar,
+  footer.site-footer {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .card, section, article {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    page-break-inside: avoid;
+  }
+}
