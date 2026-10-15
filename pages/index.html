@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="StudentHub - The centralized digital campus portal for university students, event registrations, notices, and academic dashboards.">
-  <title>Home | StudentHub - Digital Campus Portal</title>
+  <title>StudentHub | Modern Digital Campus Portal</title>
 
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../css/style.css">
@@ -15,10 +15,10 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Top Notification Banner (Practical 4) -->
-  <div class="notification-banner" id="notificationBanner" role="region" aria-label="Announcement">
+  <div class="notification-banner" id="notificationBanner" role="region" aria-label="Campus Announcement">
     <div style="display: flex; align-items: center; gap: 8px;">
-      <span>📢</span>
-      <span><strong>Fall 2026 Campus Hackathon Registration is Now Live!</strong> Register before October 25 to secure your seat.</span>
+      <span class="badge badge-warning" style="font-size: 0.72rem; padding: 2px 8px;">Notice</span>
+      <span><strong>Fall 2026 Campus Hackathon Registration is Live!</strong> Secure your team participation before October 25.</span>
     </div>
     <button class="banner-close-btn" id="closeBannerBtn" aria-label="Dismiss notification">✕</button>
   </div>
@@ -27,10 +27,10 @@
   <header class="site-header" role="banner">
     <div class="header-inner">
       <a href="index.html" class="brand-wrapper">
-        <img src="../images/logo.png" alt="StudentHub Official Crest Logo" class="brand-logo">
+        <img src="../images/logo.png" alt="StudentHub Emblem" class="brand-logo">
         <div class="brand-info">
           <h1>StudentHub</h1>
-          <p>Charusat Campus Digital Portal</p>
+          <p>Charotar University of Science & Technology (CHARUSAT)</p>
         </div>
       </a>
 
@@ -38,6 +38,8 @@
         <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
           🌙 Dark Mode
         </button>
+        <a href="login.html" class="btn btn-secondary btn-sm" style="display: none; @media(min-width: 600px){ display: inline-flex; }">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
         <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false">
           ☰
         </button>
@@ -50,16 +52,14 @@
     <div class="nav-inner">
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html" class="active" aria-current="page">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="events.html">Events Directory</a></li>
+        <li><a href="dashboard.html">Student Dashboard</a></li>
+        <li><a href="profile.html">Academic Profile</a></li>
+        <li><a href="about.html">About Portal</a></li>
+        <li><a href="faq.html">Help & FAQ</a></li>
         <li><a href="feedback.html">Feedback</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="admin.html">Admin</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li><a href="contact.html">Contact Office</a></li>
+        <li><a href="../php/admin_dashboard.php?demo=admin" style="color: var(--primary); font-weight: 600;">🛡️ Admin Console</a></li>
       </ul>
     </div>
   </nav>
@@ -76,42 +76,58 @@
   <!-- Main Content Layout (Practical 2 & 3) -->
   <main class="main-content" id="main-content">
     
-    <!-- Hero Content Carousel (Practical 4) -->
+    <!-- Hero Presentation Slider / Showcase (Practical 4) -->
     <div class="hero-slider-container" aria-roledescription="carousel" aria-label="Campus Highlights">
       <div class="slider-wrapper" id="sliderWrapper">
-        <div class="slide" style="background-image: url('../images/StudentHub.png');">
+        
+        <!-- Slide 1 -->
+        <div class="slide">
           <div class="slide-content">
-            <span class="slide-tag">Featured Event</span>
-            <h2 class="slide-title">National Student Hackathon 2026</h2>
-            <p class="slide-desc">Collaborate, build solutions with AI & Web frameworks, and compete for ₹50,000 in grand cash prizes.</p>
-            <div style="display: flex; gap: 1rem;">
-              <a href="events.html" class="btn btn-primary">Browse Events</a>
-              <a href="register.html" class="btn btn-secondary">Join StudentHub</a>
-            </div>
-          </div>
-        </div>
-        <div class="slide" style="background-image: url('../images/StudentHub.png');">
-          <div class="slide-content">
-            <span class="slide-tag">Workshop Series</span>
-            <h2 class="slide-title">Full-Stack Web Masterclass</h2>
-            <p class="slide-desc">Hands-on practical development with Semantic HTML5, CSS Grid/Flexbox, JavaScript ES6+, and PHP MySQL.</p>
-            <div style="display: flex; gap: 1rem;">
-              <a href="events.html" class="btn btn-primary">Reserve Spot</a>
-              <a href="about.html" class="btn btn-secondary">Learn More</a>
-            </div>
-          </div>
-        </div>
-        <div class="slide" style="background-image: url('../images/StudentHub.png');">
-          <div class="slide-content">
-            <span class="slide-tag">Campus News</span>
+            <span class="slide-tag">✨ Academic Portal 2026-27</span>
             <h2 class="slide-title">Empowering 10,000+ Future Tech Leaders</h2>
-            <p class="slide-desc">Centralized access to lecture notes, lab submissions, attendance tracking, and campus club updates.</p>
-            <div style="display: flex; gap: 1rem;">
-              <a href="dashboard.html" class="btn btn-primary">Open Dashboard</a>
-              <a href="faq.html" class="btn btn-secondary">Help & FAQ</a>
+            <p class="slide-desc">Centralized access to lecture notes, laboratory submissions, attendance tracking, and verified campus club updates.</p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="events.html" class="btn btn-primary">Explore Campus Events ➔</a>
+              <a href="dashboard.html" class="btn btn-secondary">Open Dashboard</a>
             </div>
           </div>
+          <div class="slide-image-frame">
+            <img src="../images/StudentHub.png" alt="CHARUSAT Campus" onerror="this.src='../images/logo.png'">
+          </div>
         </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+          <div class="slide-content">
+            <span class="slide-tag">🏆 Technical Hackathon</span>
+            <h2 class="slide-title">CodeCraft National Hackathon 2026</h2>
+            <p class="slide-desc">Collaborate on innovative Web3, AI, and Smart Campus solutions. Compete for ₹50,000 in grand cash prizes.</p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="events.html" class="btn btn-primary">Reserve Your Seat</a>
+              <a href="register.html" class="btn btn-secondary">Register Student ID</a>
+            </div>
+          </div>
+          <div class="slide-image-frame">
+            <img src="../images/StudentHub.png" alt="Hackathon Preview">
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+          <div class="slide-content">
+            <span class="slide-tag">📚 Masterclass Series</span>
+            <h2 class="slide-title">Modern Full-Stack Web Development</h2>
+            <p class="slide-desc">Hands-on laboratory sessions exploring Semantic HTML5, CSS Flexbox & Grid, JavaScript Fetch APIs, and PHP MySQL.</p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="about.html" class="btn btn-primary">View Curriculum</a>
+              <a href="faq.html" class="btn btn-secondary">Student FAQ</a>
+            </div>
+          </div>
+          <div class="slide-image-frame">
+            <img src="../images/StudentHub.png" alt="Curriculum Highlights">
+          </div>
+        </div>
+
       </div>
 
       <div class="slider-indicators" id="sliderIndicators"></div>
@@ -122,7 +138,7 @@
     </div>
 
     <!-- Quick Metrics Section (Practical 3 CSS Grid) -->
-    <section class="stats-grid" aria-label="Key Statistics">
+    <section class="stats-grid" aria-label="Key Campus Metrics">
       <div class="stat-card">
         <div class="stat-icon primary">🎓</div>
         <div class="stat-info">
@@ -141,13 +157,14 @@
         <div class="stat-icon warning">🏛️</div>
         <div class="stat-info">
           <h3>12</h3>
-          <p>Departments</p>
+          <p>Academic Depts</p>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-info" style="width: 100%;">
-          <p style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">Quick Action</p>
-          <a href="register.html" class="btn btn-primary btn-sm btn-block">New Registration</a>
+        <div class="stat-icon info">⚡</div>
+        <div class="stat-info">
+          <h3>99.4%</h3>
+          <p>On-Time Submissions</p>
         </div>
       </div>
     </section>
@@ -155,25 +172,44 @@
     <!-- Two-column Semantic Layout (Practical 2: section, article, aside) -->
     <div class="layout-grid">
       <!-- Main Content Column -->
-      <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <div style="display: flex; flex-direction: column; gap: 1.75rem;">
         
         <!-- Welcome Section -->
         <section class="content-section">
           <div class="section-header">
             <h2>Welcome to StudentHub</h2>
-            <span class="badge badge-primary">Campus Portal 2026-27</span>
+            <span class="badge badge-primary">University Portal</span>
           </div>
-          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.25rem;">
-            <img src="../images/StudentHub.png" alt="StudentHub Campus Visual Preview" style="width: 100%; max-height: 260px; object-fit: cover; border-radius: var(--radius-md);">
-          </div>
-          <p>
-            StudentHub is an integrated, accessible digital portal tailored for CHARUSAT university students, faculty, and administrators. 
-            From seamless event enrollment and timetable notifications to verified student credentials and administrative data management, 
-            StudentHub streamlines your university journey in one unified, responsive workspace.
+          
+          <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+            StudentHub is an integrated, accessible campus portal engineered for CHARUSAT university students, faculty, and administrators. 
+            Streamlining event registrations, timetable notices, verified student credentials, and academic progress into a unified workspace.
           </p>
-          <div style="display: flex; gap: 1rem; margin-top: 1.25rem;">
-            <a href="about.html" class="btn btn-secondary">About The Portal</a>
-            <a href="events.html" class="btn btn-primary">Explore All Events</a>
+
+          <!-- Core Feature Cards Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--bg-surface-elevated); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📖</div>
+              <h4 style="font-size: 1rem; margin-bottom: 0.35rem;">Academic Hub</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Access lecture materials, syllabus modules, and laboratory practical guides.</p>
+            </div>
+
+            <div style="background: var(--bg-surface-elevated); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎟️</div>
+              <h4 style="font-size: 1rem; margin-bottom: 0.35rem;">Campus Events</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Instant registration for workshops, tech fests, sports trials, and cultural meets.</p>
+            </div>
+
+            <div style="background: var(--bg-surface-elevated); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔒</div>
+              <h4 style="font-size: 1rem; margin-bottom: 0.35rem;">Secure Records</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Relational MySQL database profiles with role-based access control and audit trails.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="about.html" class="btn btn-secondary btn-sm">About The Portal</a>
+            <a href="events.html" class="btn btn-primary btn-sm">Explore All Events</a>
           </div>
         </section>
 
@@ -183,49 +219,63 @@
             <h2>Upcoming Technical Symposium</h2>
             <span class="badge badge-success">Registration Open</span>
           </div>
-          <p>
-            The Department of Information Technology cordially invites third-year and fourth-year students to the upcoming 
-            <strong>Web Development Frameworks & Cloud Seminar</strong>. The session will cover modern client-side architectures, 
-            PHP PDO prepared statements, API design, and accessible frontend practices.
+          <p style="color: var(--text-muted); line-height: 1.6;">
+            The Department of Information Technology cordially invites second, third, and final year students to the upcoming 
+            <strong>Web Development Frameworks & Cloud Seminar</strong>. The masterclass covers modern frontend component architecture, 
+            PHP PDO prepared statements, RESTful JSON APIs, and accessibility best practices.
           </p>
-          <ul style="margin: 1rem 0 1rem 1.5rem; color: var(--text-muted);">
-            <li><strong>Speaker:</strong> Senior Architect from Microsoft / GitHub</li>
-            <li><strong>Prerequisites:</strong> Basic HTML5, CSS3, and JavaScript knowledge</li>
-            <li><strong>Certification:</strong> IEEE Student Branch verified certificates</li>
-          </ul>
-          <a href="events.html" class="btn btn-secondary btn-sm">View Schedule & Venue</a>
+          <div style="background: var(--bg-surface-elevated); padding: 1rem 1.25rem; border-radius: var(--radius-md); margin: 1rem 0; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.4rem;">
+            <div>🎙️ <strong>Speaker:</strong> Senior Architect from Microsoft / GitHub Student Experts</div>
+            <div>📋 <strong>Prerequisites:</strong> Basic HTML5, CSS3 Flexbox/Grid, and JavaScript ES6</div>
+            <div>📜 <strong>Certification:</strong> Verified CHARUSAT IEEE Student Branch certificate</div>
+          </div>
+          <a href="events.html" class="btn btn-secondary btn-sm">View Schedule & Venue Details</a>
         </article>
 
       </div>
 
-      <!-- Aside Column: Notices & Sidebar Tools -->
+      <!-- Aside Column: Notices & Quick Access -->
       <aside class="content-aside" aria-label="Campus Notices and Deadlines">
         <div class="section-header">
           <h2>Campus Notices</h2>
           <span class="badge badge-warning">Live</span>
         </div>
+        
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; padding: 0;">
           <li style="padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-color);">
-            <span style="font-size: 0.78rem; color: var(--danger); font-weight: 700; text-transform: uppercase;">Urgent</span>
-            <h4 style="font-size: 1rem; margin-top: 2px;">Web Frameworks Lab 3 Submission</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">Due this Friday by 11:59 PM on Google Classroom.</p>
+            <span class="badge badge-danger" style="font-size: 0.7rem; margin-bottom: 4px;">Urgent</span>
+            <h4 style="font-size: 0.95rem; margin-top: 4px;">Web Frameworks Lab 3 Submission</h4>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">Due this Friday by 11:59 PM on Google Classroom.</p>
           </li>
           <li style="padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-color);">
-            <span style="font-size: 0.78rem; color: var(--primary); font-weight: 700; text-transform: uppercase;">Academic</span>
-            <h4 style="font-size: 1rem; margin-top: 2px;">Mid-Semester Practical Examination</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">Schedule published on the faculty notice board.</p>
+            <span class="badge badge-primary" style="font-size: 0.7rem; margin-bottom: 4px;">Academic</span>
+            <h4 style="font-size: 0.95rem; margin-top: 4px;">Mid-Semester Practical Examination</h4>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">Schedule published on faculty notice board.</p>
           </li>
           <li style="padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-color);">
-            <span style="font-size: 0.78rem; color: var(--success); font-weight: 700; text-transform: uppercase;">Sports</span>
-            <h4 style="font-size: 1rem; margin-top: 2px;">Inter-Department Chess Trials</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0;">Registration closes this Saturday at 5 PM.</p>
+            <span class="badge badge-success" style="font-size: 0.7rem; margin-bottom: 4px;">Sports</span>
+            <h4 style="font-size: 0.95rem; margin-top: 4px;">Inter-Department Chess Trials</h4>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0;">Registration closes this Saturday at 5 PM.</p>
           </li>
         </ul>
 
+        <!-- Laboratory Portals Quick Access -->
         <div style="margin-top: 1.5rem; background: var(--bg-surface-elevated); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-          <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;">Need Assistance?</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Have questions regarding course registration or events?</p>
-          <a href="faq.html" class="btn btn-primary btn-sm btn-block" style="margin-top: 0.5rem;">Visit FAQ Page</a>
+          <h4 style="font-size: 0.95rem; margin-bottom: 0.6rem;">Laboratory Modules</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;">
+            <a href="../php/admin_dashboard.php?demo=admin" style="font-weight: 600;">📊 Dynamic Admin Console</a>
+            <a href="../php/students_crud.php" style="font-weight: 600;">👥 Student Management CRUD</a>
+            <a href="../php/events_crud.php" style="font-weight: 600;">🎟️ Events & Poster Upload CRUD</a>
+            <a href="ajax_crud.html" style="font-weight: 600;">⚡ Async Fetch API Studio</a>
+            <a href="../php/view_records.php" style="font-weight: 600;">📁 Stored CSV & JSON Records</a>
+          </div>
+        </div>
+
+        <!-- Help Desk Widget -->
+        <div style="margin-top: 1.25rem; background: var(--bg-surface-elevated); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+          <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Need Assistance?</h4>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">Have questions regarding courses, registrations, or examinations?</p>
+          <a href="faq.html" class="btn btn-primary btn-sm btn-block">Visit FAQ Center</a>
         </div>
       </aside>
     </div>
@@ -236,12 +286,12 @@
   <footer class="site-footer" role="contentinfo">
     <div class="footer-top">
       <div class="footer-col">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
-          <img src="../images/logo.png" alt="StudentHub" style="width: 36px; height: 36px;">
-          <h3 style="color: #ffffff; font-size: 1.3rem;">StudentHub</h3>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.85rem;">
+          <img src="../images/logo.png" alt="StudentHub Emblem" style="width: 32px; height: 32px;">
+          <h3 style="color: #ffffff; font-size: 1.2rem; margin: 0;">StudentHub</h3>
         </div>
-        <p style="font-size: 0.88rem; line-height: 1.6;">
-          CHARUSAT University Campus Student Portal. Designed for ITUE203 Web Development Frameworks laboratory curriculum.
+        <p style="font-size: 0.85rem; line-height: 1.6; color: #94a3b8;">
+          CHARUSAT Campus Student Digital Portal. Built for ITUE203 Web Development Frameworks laboratory curriculum.
         </p>
       </div>
 
@@ -249,34 +299,34 @@
         <h4>Navigation</h4>
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
           <li><a href="events.html">Campus Events</a></li>
           <li><a href="dashboard.html">Student Dashboard</a></li>
           <li><a href="profile.html">My Profile</a></li>
+          <li><a href="about.html">About Portal</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Student Resources</h4>
+        <h4>Resources & Tools</h4>
         <ul class="footer-links">
           <li><a href="faq.html">Help & FAQ</a></li>
           <li><a href="feedback.html">Feedback Form</a></li>
           <li><a href="contact.html">Contact Office</a></li>
-          <li><a href="admin.html">Admin Console</a></li>
-          <li><a href="register.html">Sign Up</a></li>
+          <li><a href="../php/admin_dashboard.php?demo=admin">Admin Console</a></li>
+          <li><a href="ajax_crud.html">AJAX Studio</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Contact Campus</h4>
-        <p style="font-size: 0.88rem; margin-bottom: 0.4rem;">📍 Faculty of Technology & Engineering</p>
-        <p style="font-size: 0.88rem; margin-bottom: 0.4rem;">✉️ support@studenthub.charusat.ac.in</p>
-        <p style="font-size: 0.88rem;">📞 +91 2697 265011</p>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.35rem;">📍 Faculty of Technology & Engineering</p>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.35rem;">✉️ support@studenthub.charusat.ac.in</p>
+        <p style="font-size: 0.85rem; color: #94a3b8;">📞 +91 2697 265011</p>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2026-27 StudentHub. CHARUSAT University. All rights reserved. Built with Semantic HTML5, CSS3 Grid/Flexbox, JavaScript & PHP.</p>
+      <p>&copy; 2026-27 StudentHub. CHARUSAT University. All rights reserved.</p>
     </div>
   </footer>
 
