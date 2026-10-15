@@ -253,34 +253,74 @@ window.goToPage = function(page) {
  * Event Detail Modal Action
  */
 window.showEventDetails = function(eventId) {
-  const event = allEvents.find(e => e.id === eventId);
-  if (!event) return;
+  let event = allEvents.find(e => e.id == eventId);
+
+  // If not found in memory, try offline localStorage cache
+  if (!event) {
+    try {
+      const cached = JSON.parse(localStorage.getItem('studenthub_events_cache') || '[]');
+      event = cached.find(e => e.id == eventId);
+    } catch (err) {
+      console.warn('Cache fallback parse error:', err);
+    }
+  }
+
+  if (!event) {
+    console.error(`Event with ID ${eventId} could not be found.`);
+    return;
+  }
 
   const modalBody = document.getElementById('eventModalBody');
   const modalTitle = document.getElementById('eventModalTitle');
+  const modal = document.getElementById('eventDetailModal');
 
-  if (modalTitle) modalTitle.textContent = event.title;
+  const title = event.title || 'Event Details';
+  const poster = event.poster || event.poster_image || '../images/StudentHub.png';
+  const category = event.category || 'Technical';
+  const status = event.status || 'Open';
+  const desc = event.description || 'No detailed description available for this campus event.';
+  const eventDate = formatDate(event.date || event.event_date || '2026-10-30');
+  const eventTime = event.time || event.event_time || '10:00 AM - 04:00 PM';
+  const venue = event.venue || 'Campus Auditorium';
+  const organizer = event.organizer || 'StudentHub Committee';
+  const registered = event.registered ?? event.registered_count ?? 0;
+  const seats = event.seats ?? event.capacity ?? 100;
+
+  if (modalTitle) {
+    modalTitle.textContent = title;
+  }
+
   if (modalBody) {
     modalBody.innerHTML = `
       <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <img src="${event.poster || '../images/StudentHub.png'}" alt="${event.title}" style="max-height: 220px; object-fit: cover; border-radius: var(--radius-md);">
-        <div>
-          <span class="badge badge-primary">${event.category}</span>
-          <span class="badge ${event.status === 'Open' ? 'badge-success' : 'badge-danger'}" style="margin-left: 8px;">${event.status}</span>
+        <img src="${poster}" alt="${escapeHTML(title)}" style="max-height: 220px; width: 100%; object-fit: cover; border-radius: var(--radius-md);" onerror="this.src='../images/StudentHub.png'">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="badge badge-primary">${escapeHTML(category)}</span>
+          <span class="badge ${status === 'Open' ? 'badge-success' : 'badge-danger'}">${escapeHTML(status)}</span>
         </div>
-        <p style="font-size: 1rem; color: var(--text-main);">${escapeHTML(event.description)}</p>
-        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 0.92rem; color: var(--text-muted);">
-          <li>📅 <strong>Date:</strong> ${formatDate(event.date)}</li>
-          <li>⏰ <strong>Time:</strong> ${event.time || 'TBA'}</li>
-          <li>📍 <strong>Venue:</strong> ${event.venue}</li>
-          <li>👥 <strong>Organizer:</strong> ${event.organizer || 'StudentHub'}</li>
-          <li>🎟️ <strong>Capacity:</strong> ${event.registered} / ${event.seats} Registered</li>
+        <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6;">${escapeHTML(desc)}</p>
+        <ul style="list-style: none; padding: 0.85rem 1rem; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+          <li>📅 <strong>Date:</strong> ${eventDate}</li>
+          <li>⏰ <strong>Time:</strong> ${escapeHTML(eventTime)}</li>
+          <li>📍 <strong>Venue:</strong> ${escapeHTML(venue)}</li>
+          <li>👥 <strong>Organizer:</strong> ${escapeHTML(organizer)}</li>
+          <li>🎟️ <strong>Capacity:</strong> ${registered} / ${seats} Registered</li>
         </ul>
       </div>
     `;
   }
 
-  if (window.openModal) window.openModal('eventDetailModal');
+  if (modal) {
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  if (typeof window.openModal === 'function') {
+    window.openModal('eventDetailModal');
+  } else if (modal) {
+    modal.classList.add('active');
+    modal.classList.add('open');
+    modal.style.display = 'flex';
+  }
 };
 
 /**

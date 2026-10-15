@@ -231,23 +231,26 @@ function initModalSystem() {
   });
 
   document.querySelectorAll('.modal-backdrop').forEach(modal => {
-    // Backdrop click
+    // Backdrop click to dismiss
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         closeModal(modal.id);
       }
     });
 
-    // Close buttons
+    // Close buttons (X icon and Close button)
     modal.querySelectorAll('.modal-close-btn, [data-modal-close]').forEach(btn => {
-      btn.addEventListener('click', () => closeModal(modal.id));
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal(modal.id);
+      });
     });
   });
 
   // ESC key listener
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      const activeModal = document.querySelector('.modal-backdrop.active');
+      const activeModal = document.querySelector('.modal-backdrop.active, .modal-backdrop.open, .modal-backdrop[style*="display: flex"]');
       if (activeModal) closeModal(activeModal.id);
     }
   });
@@ -257,6 +260,8 @@ window.openModal = function(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.classList.add('active');
+    modal.classList.add('open');
+    modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
 };
@@ -265,6 +270,8 @@ window.closeModal = function(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.classList.remove('active');
+    modal.classList.remove('open');
+    modal.style.display = 'none';
     document.body.style.overflow = '';
   }
 };
