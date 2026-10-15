@@ -293,26 +293,24 @@ function initRegistrationValidation() {
   const captchaInput = document.getElementById('regCaptcha');
 
   // Regex Patterns
-  const nameRegex = /^[A-Za-z\s]{3,50}$/;
+  const nameRegex = /^[A-Za-z0-9\s.]{3,50}$/;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phoneRegex = /^[6-9]\d{9}$/;
-  // At least 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   // Real-time Listeners
   if (nameInput) {
-    nameInput.addEventListener('input', () => validateField(nameInput, nameRegex, 'Name must be at least 3 letters without numbers.'));
+    nameInput.addEventListener('input', () => validateField(nameInput, nameRegex, 'Name must be at least 3 characters.'));
   }
   if (emailInput) {
     emailInput.addEventListener('input', () => validateField(emailInput, emailRegex, 'Enter a valid email address (e.g., student@charusat.edu.in).'));
   }
   if (phoneInput) {
-    phoneInput.addEventListener('input', () => validateField(phoneInput, phoneRegex, 'Enter a valid 10-digit Indian mobile number.'));
+    phoneInput.addEventListener('input', () => validateField(phoneInput, phoneRegex, 'Enter a valid 10-digit mobile number starting with 6-9.'));
   }
   if (passwordInput) {
     passwordInput.addEventListener('input', () => {
       validatePasswordStrength(passwordInput.value);
-      validateField(passwordInput, passwordRegex, 'Password must be 8+ chars with uppercase, lowercase, number, and special character.');
+      validatePassword(passwordInput);
       if (confirmPasswordInput && confirmPasswordInput.value) {
         validateConfirmPassword();
       }
@@ -331,6 +329,37 @@ function initRegistrationValidation() {
     }
     if (!regex.test(val)) {
       setError(input, errorSpan, errorMessage);
+      return false;
+    }
+    setSuccess(input, errorSpan);
+    return true;
+  }
+
+  function validatePassword(input) {
+    const errorSpan = document.getElementById(`${input.id}Error`);
+    const val = input.value;
+    if (!val) {
+      setError(input, errorSpan, 'Password is required.');
+      return false;
+    }
+    if (val.length < 8) {
+      setError(input, errorSpan, 'Password must be at least 8 characters long.');
+      return false;
+    }
+    if (!/[A-Z]/.test(val)) {
+      setError(input, errorSpan, 'Must include at least one uppercase letter (A-Z).');
+      return false;
+    }
+    if (!/[a-z]/.test(val)) {
+      setError(input, errorSpan, 'Must include at least one lowercase letter (a-z).');
+      return false;
+    }
+    if (!/\d/.test(val)) {
+      setError(input, errorSpan, 'Must include at least one digit (0-9).');
+      return false;
+    }
+    if (!/[@$!%*?&#^_\-\.]/.test(val)) {
+      setError(input, errorSpan, 'Must include at least one symbol (e.g. @, #, $, !).');
       return false;
     }
     setSuccess(input, errorSpan);
@@ -374,7 +403,7 @@ function initRegistrationValidation() {
     if (/[A-Z]/.test(pwd)) score++;
     if (/[a-z]/.test(pwd)) score++;
     if (/\d/.test(pwd)) score++;
-    if (/[@$!%*?&]/.test(pwd)) score++;
+    if (/[@$!%*?&#^_\-\.]/.test(pwd)) score++;
 
     if (pwd.length === 0) {
       meterFill.style.width = '0%';
@@ -403,17 +432,17 @@ function initRegistrationValidation() {
   form.addEventListener('submit', (e) => {
     let isValid = true;
 
-    if (!validateField(nameInput, nameRegex, 'Name must be at least 3 letters.')) isValid = false;
+    if (!validateField(nameInput, nameRegex, 'Name must be at least 3 characters.')) isValid = false;
     if (!validateField(emailInput, emailRegex, 'Enter a valid email address.')) isValid = false;
     if (!validateField(phoneInput, phoneRegex, 'Enter a valid 10-digit mobile number.')) isValid = false;
-    if (!validateField(passwordInput, passwordRegex, 'Password must meet complexity requirements.')) isValid = false;
+    if (!validatePassword(passwordInput)) isValid = false;
     if (!validateConfirmPassword()) isValid = false;
 
     // Course
     const courseError = document.getElementById('regCourseError');
     if (courseSelect && !courseSelect.value) {
       courseSelect.classList.add('is-invalid');
-      if (courseError) courseError.textContent = 'Please select a course.';
+      if (courseError) courseError.textContent = 'Please select your degree/course.';
       isValid = false;
     } else if (courseSelect) {
       courseSelect.classList.remove('is-invalid');
@@ -433,7 +462,7 @@ function initRegistrationValidation() {
     // Terms
     const termsError = document.getElementById('regTermsError');
     if (termsCheckbox && !termsCheckbox.checked) {
-      if (termsError) termsError.textContent = 'You must accept the terms and conditions.';
+      if (termsError) termsError.textContent = 'You must accept the terms and code of conduct.';
       isValid = false;
     } else if (termsError) {
       termsError.textContent = '';
@@ -442,8 +471,12 @@ function initRegistrationValidation() {
     // Canvas CAPTCHA check
     if (captchaInput) {
       const captchaError = document.getElementById('regCaptchaError');
-      if (captchaInput.value.toUpperCase() !== window.currentCaptchaCode) {
-        if (captchaError) captchaError.textContent = 'Incorrect CAPTCHA code. Please try again.';
+      if (!captchaInput.value.trim()) {
+        if (captchaError) captchaError.textContent = 'Please enter the CAPTCHA code.';
+        captchaInput.classList.add('is-invalid');
+        isValid = false;
+      } else if (captchaInput.value.toUpperCase().trim() !== (window.currentCaptchaCode || '').toUpperCase().trim()) {
+        if (captchaError) captchaError.textContent = 'Incorrect CAPTCHA code. Please enter the new characters.';
         captchaInput.classList.add('is-invalid');
         isValid = false;
         generateNewCaptcha();
@@ -455,16 +488,15 @@ function initRegistrationValidation() {
 
     if (!isValid) {
       e.preventDefault();
-      showToast('Please fix the errors in the form before submitting.', 'error');
-    } else {
-      // If client-side only mode, show success modal
-      if (form.getAttribute('action') === '#' || !form.getAttribute('action')) {
-        e.preventDefault();
-        showToast('Registration successful! Redirecting to login...', 'success');
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1500);
+
+      // Automatically scroll to the first invalid field so the user sees the issue immediately
+      const firstInvalid = form.querySelector('.is-invalid');
+      if (firstInvalid) {
+        firstInvalid.focus();
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+
+      showToast('⚠️ Please fix the highlighted error(s) in the form.', 'error');
     }
   });
 }

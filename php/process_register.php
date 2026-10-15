@@ -32,8 +32,8 @@ $confirm_password = $_POST['confirm_password'] ?? '';
 $terms = isset($_POST['terms']);
 
 // 2. Validate Inputs
-if (empty($name) || strlen($name) < 3 || !preg_match("/^[A-Za-z\s]+$/", $name)) {
-    $errors[] = "Name must contain only letters and spaces (min 3 characters).";
+if (empty($name) || strlen($name) < 3 || !preg_match("/^[A-Za-z0-9\s.]+$/", $name)) {
+    $errors[] = "Name must contain only letters, numbers, and spaces (min 3 characters).";
 }
 
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -53,8 +53,8 @@ if (empty($gender)) {
 }
 
 // Password Complexity Check (min 8 chars, 1 uppercase, 1 lowercase, 1 digit, 1 special char)
-if (strlen($password) < 8 || !preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/\d/", $password) || !preg_match("/[@$!%*?&]/", $password)) {
-    $errors[] = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+if (strlen($password) < 8 || !preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/\d/", $password) || !preg_match("/[@$!%*?&#^_\-\.]/", $password)) {
+    $errors[] = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character (@$!%*?&#^_-.).";
 }
 
 if ($password !== $confirm_password) {
