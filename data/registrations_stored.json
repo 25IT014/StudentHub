@@ -1,0 +1,22 @@
+[
+    {
+        "timestamp": "2026-10-15 16:56:51",
+        "student_id": "24IT930",
+        "name": "25IT014 CHANGANI JANKI HARSHADBHAI",
+        "email": "25it014@charusat.edu.in",
+        "phone": "9909404652",
+        "course": "B.Tech IT",
+        "year": "3rd Year",
+        "gender": "Female"
+    },
+    {
+        "timestamp": "2026-10-15 16:57:27",
+        "student_id": "24IT212",
+        "name": "25IT014 CHANGANI JANKI HARSHADBHAI",
+        "email": "25it014@charusat.edu.in",
+        "phone": "9909404652",
+        "course": "B.Tech IT",
+        "year": "3rd Year",
+        "gender": "Female"
+    }
+]
