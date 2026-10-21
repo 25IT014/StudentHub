@@ -1031,3 +1031,58 @@ textarea.is-invalid {
 [data-theme="dark"] select.is-invalid {
   background-color: rgba(239, 68, 68, 0.1) !important;
 }
+
+
+/* Practical 4: FAQ Accordion */
+
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-question-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: none;
+    background: var(--bg-surface);
+    color: var(--text-color);
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.faq-question-btn:hover {
+    background: var(--bg-surface-elevated);
+}
+
+.faq-answer-pane {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-answer-pane p {
+    padding: 0 16px 16px;
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+}
